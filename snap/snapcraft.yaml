@@ -25,7 +25,7 @@ parts:
     build-attributes:
       - enable-patchelf
     prime:
-      - "-usr/bin/*"
+      - "-usr/bin/git*"
       - "-usr/share/doc"
       - "-usr/share/man"
       # perl is part of the core22 / core24
