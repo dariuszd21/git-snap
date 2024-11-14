@@ -1,0 +1,43 @@
+name: git-client
+base: core24
+version: '2.43.0'
+summary: Snap package of the git client
+description: |
+  This snaps allows to use git in a confined
+  environment.
+
+grade: devel
+confinement: strict
+
+apps:
+  git:
+    command: usr/lib/git-core/git
+    plugs:
+      - network
+      - home
+      - ssh-keys
+
+parts:
+  git:
+    # See 'snapcraft plugins'
+    plugin: nil
+    stage-packages: [git, openssh-client]
+    build-attributes:
+      - enable-patchelf
+    prime:
+      - "-usr/bin/*"
+      - "-usr/share/doc"
+      - "-usr/share/man"
+      # perl is part of the core22 / core24
+      - "-usr/bin/perl*"
+      - "-usr/share/perl"
+      - "-usr/lib/x86_64-linux-gnu/perl"
+      - "-usr/lib/x86_64-linux-gnu/libperl*"
+      - "-usr/lib/x86_64-linux-gnu/libgdbm*"
+
+
+layout:
+  /usr/lib/git-core:
+    symlink: $SNAP/usr/lib/git-core
+  /usr/share/git-core:
+    symlink: $SNAP/usr/share/git-core
